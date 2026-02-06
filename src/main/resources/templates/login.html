@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - Goldencat Bank</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        :root{
+            --gold:#ffd700;
+            --dark:#0b0b0b;
+            --muted:#e9e7e3;
+            --glass: rgba(255,255,255,0.06);
+        }
+
+        html,body{
+            height:100%;
+            margin:0;
+        }
+
+        body{
+            font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            background:
+                radial-gradient(1200px 600px at 10% 10%, rgba(255,215,0,0.08), transparent),
+                linear-gradient(135deg, #020202 0%, #111 50%, #0b0b0b 100%);
+            color:var(--muted);
+            display:flex;
+            flex-direction:column;
+        }
+
+        /* NAVBAR */
+        .navbar-custom{
+            background:rgba(0,0,0,0.6);
+            backdrop-filter:blur(8px);
+            border-bottom:1px solid rgba(255,215,0,0.08);
+            padding:14px 32px;
+        }
+
+        .navbar-brand{
+            color:var(--gold);
+            font-weight:800;
+            letter-spacing:0.4px;
+        }
+
+        .navbar-brand:hover{
+            color:#ffc107;
+        }
+
+        .social-icons a{
+            color:rgba(255,255,255,0.75);
+            font-size:1.25rem;
+            margin-left:16px;
+            transition:all .2s ease;
+        }
+
+        .social-icons a:hover{
+            color:var(--gold);
+            transform:translateY(-2px);
+        }
+
+        /* CENTER WRAPPER */
+        .page-center{
+            flex:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:40px 16px;
+        }
+
+        /* CARD */
+        .card-glass{
+            width:100%;
+            max-width:420px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border-radius:18px;
+            padding:36px;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.7),
+                inset 0 1px 0 rgba(255,255,255,0.04);
+            border:1px solid rgba(255,215,0,0.08);
+            backdrop-filter:blur(10px) saturate(1.1);
+            animation:fadeUp .7s ease forwards;
+        }
+
+        /* BRAND */
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-bottom:22px;
+        }
+
+        .logo{
+            width:48px;
+            height:48px;
+            border-radius:12px;
+            background:linear-gradient(135deg,var(--gold),#ffc107);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#111;
+            font-weight:900;
+            font-size:1.1rem;
+            box-shadow:0 6px 20px rgba(255,215,0,0.35);
+        }
+
+        h2{
+            margin:0;
+            color:white;
+            font-weight:700;
+            font-size:1.35rem;
+        }
+
+        p.lead{
+            color:rgba(255,255,255,0.75);
+            margin:6px 0 0 0;
+            font-size:0.95rem;
+        }
+
+        /* FORM */
+        .form-group label{
+            color:rgba(255,255,255,0.85);
+            font-weight:600;
+            font-size:0.9rem;
+        }
+
+        .form-control{
+            background:rgba(255,255,255,0.02);
+            border:1px solid rgba(255,255,255,0.1);
+            color:var(--muted);
+            padding:11px 14px;
+            border-radius:10px;
+        }
+
+        .form-control::placeholder{
+            color:rgba(255,255,255,0.4);
+        }
+
+        .form-control:focus{
+            outline:none;
+            border-color:var(--gold);
+            box-shadow:0 0 0 2px rgba(255,215,0,0.15);
+            background:rgba(255,255,255,0.03);
+        }
+
+        /* BUTTON */
+        .btn-gold{
+            background:linear-gradient(90deg,var(--gold),#ffc107);
+            color:#111;
+            font-weight:800;
+            letter-spacing:0.3px;
+            border-radius:12px;
+            padding:12px;
+            border:none;
+            box-shadow:0 10px 25px rgba(255,215,0,0.25);
+            transition:all .15s ease;
+        }
+
+        .btn-gold:hover{
+            transform:translateY(-3px);
+            box-shadow:0 14px 30px rgba(255,215,0,0.35);
+        }
+
+        /* LINKS */
+        .muted-link{
+            color:var(--gold);
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        .muted-link:hover{
+            text-decoration:underline;
+        }
+
+        /* ERROR */
+        .error{
+            color:#ff6b6b;
+            background:rgba(255,107,107,0.08);
+            padding:10px;
+            border-radius:8px;
+            margin-top:14px;
+            font-weight:600;
+        }
+
+        /* FOOTER */
+        .footer{
+            background:rgba(0,0,0,0.6);
+            backdrop-filter:blur(8px);
+            border-top:1px solid rgba(255,215,0,0.08);
+            padding:14px;
+            text-align:center;
+            font-size:0.85rem;
+            color:rgba(255,255,255,0.6);
+        }
+
+        .footer a{
+            color:var(--gold);
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        .footer a:hover{
+            text-decoration:underline;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeUp{
+            from{opacity:0; transform:translateY(20px)}
+            to{opacity:1; transform:translateY(0)}
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">Goldencat Bank</a>
+    <!-- <div class="ml-auto social-icons">
+        <a href="https://www.youtube.com/@codewithgoldencat" target="_blank" title="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/code-with-goldecat-453460297/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div> -->
+</nav>
+
+<!-- CENTER -->
+<div class="page-center">
+    <div class="card-glass">
+        <div class="brand">
+            <div class="logo">GC</div>
+            <div>
+                <h2>Goldencat Bank</h2>
+                <p class="lead">Secure banking — simple and elegant</p>
+            </div>
+        </div>
+
+        <!-- FORM (UNCHANGED LOGIC) -->
+        <form method="post" action="/login">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+
+            <div class="form-group mt-3">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn-gold btn-block">Login</button>
+            </div>
+        </form>
+
+        <p class="text-center mt-3">
+            Don't have an account?
+            <a href="/register" class="muted-link">Register here</a>
+        </p>
+
+        <div th:if="${param.error}" class="error text-center">
+            Invalid username or password.
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>
+        &copy; 2024 Code With Goldencat.
+        All rights reserved |
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a>
+    </p>
+</footer>
+
+<script>
+    window.addEventListener('load', () => {
+        const i = document.querySelector('input[name=username]');
+        if(i) i.focus();
+    });
+</script>
+
+</body>
+</html>
